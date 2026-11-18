@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ahmed Taher | الكارت الشخصي الرقمي</title>
+    
+    <!-- خط القاهرة العربي الفخم من Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- مكتبة أيقونات Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- مكتبة Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                    },
+                    colors: {
+                        gold: {
+                            100: '#FBF5D4',
+                            200: '#F5E599',
+                            300: '#EDD15D',
+                            400: '#E2BC2D',
+                            500: '#D4AF37', // اللون الذهبي الملكي الأساسي
+                            600: '#B59024',
+                            700: '#8F6E19',
+                        },
+                        obsidian: {
+                            900: '#09090B',
+                            800: '#121216',
+                            700: '#1A1A22',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmer 2.5s infinite linear',
+                    },
+                    keyframes: {
+                        shimmer: {
+                            '0%': { transform: 'translateX(100%)' },
+                            '100%': { transform: 'translateX(-100%)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-obsidian-900 text-slate-100 min-h-screen flex items-center justify-center p-0 sm:p-4 selection:bg-gold-500 selection:text-obsidian-900 overflow-x-hidden">
+
+    <!-- حاوية تحاكي شاشة تطبيق الهاتف المحمول -->
+    <main class="relative w-full max-w-[430px] min-h-screen sm:min-h-[820px] sm:rounded-[2.75rem] bg-obsidian-800 sm:border sm:border-white/10 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col justify-between">
+        
+        <!-- إضاءات خلفية ضبابية (Ambient Gold & Amber Orbs) لتعزيز تأثير الزجاج -->
+        <div class="pointer-events-none absolute -top-24 -right-24 w-72 h-72 rounded-full bg-gold-500/20 blur-[90px] animate-pulse-slow"></div>
+        <div class="pointer-events-none absolute top-1/2 -left-28 w-64 h-64 rounded-full bg-amber-600/15 blur-[85px]"></div>
+        <div class="pointer-events-none absolute -bottom-24 right-10 w-64 h-64 rounded-full bg-gold-400/15 blur-[80px]"></div>
+
+        <!-- الجزء العلوي: شريط الأدوات + صورة الغلاف + الصورة الشخصية -->
+        <div class="relative z-10">
+            <!-- شريط علوي شفاف يحتوي على زر المشاركة وشارة الحالة -->
+            <header class="flex items-center justify-between px-5 pt-6 pb-2">
+                <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] backdrop-blur-md border border-white/10">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                    <span class="text-xs font-medium text-slate-300">متاح للتواصل</span>
+                </div>
+
+                <!-- زر مشاركة الكارت العلوي -->
+                <button 
+                    id="shareCardBtn" 
+                    onclick="shareDigitalCard()"
+                    aria-label="مشاركة الكارت"
+                    class="group flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.06] hover:bg-gold-500/20 active:scale-95 backdrop-blur-xl border border-white/15 hover:border-gold-400/50 text-xs font-semibold text-gold-200 transition-all duration-300 shadow-lg cursor-pointer">
+                    <span>مشاركة الكارت</span>
+                    <span class="text-sm group-hover:rotate-12 transition-transform">🔗</span>
+                </button>
+            </header>
+
+            <!-- بطاقة الهوية الرئيسية (Glassmorphism Profile Card) -->
+            <section class="px-5 mt-3">
+                <div class="relative rounded-3xl bg-white/[0.03] backdrop-blur-2xl border border-white/10 p-6 text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                    
+                    <!-- إطار الصورة الشخصية الذهبي المتوهج -->
+                    <div class="relative mx-auto w-28 h-28 mb-4">
+                        <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-gold-600 via-gold-300 to-amber-500 p-[3px] shadow-[0_0_30px_rgba(212,175,55,0.35)]">
+                            <div class="w-full h-full rounded-full bg-obsidian-900 p-1 overflow-hidden">
+                                <!-- الصورة الشخصية مع Fallback تلقائي للأحرف الأولى -->
+                                <img 
+                                    src="https://i.postimg.cc/cLYj9sJK/lwjw.jpg" 
+                                    onerror="this.onerror=null; this.src='https://placehold.co/300x300/141418/D4AF37?text=AT';"
+                                    alt="Ahmed Taher" 
+                                    class="w-full h-full object-cover rounded-full"
+                                >
+                            </div>
+                        </div>
+                        <!-- أيقونة توثيق ذهبية -->
+                        <div class="absolute bottom-0 right-1 w-7 h-7 rounded-full bg-gradient-to-br from-gold-300 to-gold-600 text-obsidian-900 flex items-center justify-center border-2 border-obsidian-800 shadow-md" title="حساب موثق">
+                            <i class="fa-solid fa-check text-xs font-bold"></i>
+                        </div>
+                    </div>
+
+                    <!-- الاسم والمسمى الوظيفي -->
+                    <h1 class="text-2xl font-extrabold tracking-wide text-white mb-1" dir="ltr">
+                        Ahmed Taher
+                    </h1>
+                    
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 mb-3">
+                        <i class="fa-solid fa-briefcase text-gold-400 text-xs"></i>
+                        <span class="text-sm font-bold text-gold-300 tracking-wider uppercase" dir="ltr">Sales</span>
+                    </div>
+
+                    <p class="text-xs leading-relaxed text-slate-400 max-w-[290px] mx-auto">
+                        نساعدك في الوصول إلى أفضل الحلول والفرص البيعية باحترافية عالية وتواصل مباشر على مدار الساعة.
+                    </p>
+
+                    <!-- أزرار الإجراءات السريعة (اتصال - واتساب - موقع) -->
+                    <div class="grid grid-cols-3 gap-2.5 mt-5 pt-5 border-t border-white/10">
+                        <!-- اتصال مباشر -->
+                        <a href="tel:+201093285310" class="flex flex-col items-center justify-center gap-1.5 py-3 px-2 rounded-2xl bg-white/[0.04] hover:bg-white/[0.09] active:scale-95 border border-white/10 transition-all">
+                            <div class="w-9 h-9 rounded-xl bg-gold-500/15 text-gold-400 flex items-center justify-center text-base">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <span class="text-xs font-semibold text-slate-200">اتصال</span>
+                        </a>
+
+                        <!-- محادثة واتساب فورية -->
+                        <a href="https://wa.me/201093285310?text=%D8%A3%D9%87%D9%84%D8%A7%D9%8B%20%D8%A3%D8%B3%D8%AA%D8%A7%D8%B0%20%D8%A3%D8%AD%D9%85%D8%AF%D8%8C%20%D8%AA%D9%88%D8%A7%D8%B5%D9%84%D8%AA%20%D9%85%D8%B9%D9%83%20%D9%85%D9%86%20%D8%AE%D9%84%D8%A7%D9%84%20%D9%83%D8%A7%D8%B1%D8%AA%D9%83%20%D8%A7%D9%84%D8%B1%D9%82%D9%85%D9%8A." target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center gap-1.5 py-3 px-2 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 active:scale-95 border border-emerald-500/25 transition-all">
+                            <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <span class="text-xs font-semibold text-emerald-300">واتساب</span>
+                        </a>
+
+                        <!-- الموقع على خرائط جوجل -->
+                        <a href="https://www.google.com/maps/@30.0867731,31.3070343,17z?authuser=0&entry=ttu&g_ep=EgoyMDI2MTExNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center gap-1.5 py-3 px-2 rounded-2xl bg-white/[0.04] hover:bg-white/[0.09] active:scale-95 border border-white/10 transition-all">
+                            <div class="w-9 h-9 rounded-xl bg-sky-500/15 text-sky-400 flex items-center justify-center text-base">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <span class="text-xs font-semibold text-slate-200">الموقع</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- الزر الرئيسي البارز: حفظ جهة الاتصال (vCard) -->
+            <section class="px-5 mt-5">
+                <button 
+                    id="saveContactBtn" 
+                    onclick="downloadVCard()"
+                    class="relative w-full overflow-hidden rounded-2xl bg-gradient-to-l from-gold-600 via-gold-400 to-gold-500 p-[1px] shadow-[0_12px_35px_-5px_rgba(212,175,55,0.45)] active:scale-[0.98] transition-all duration-200 cursor-pointer group">
+                    
+                    <div class="relative flex items-center justify-center gap-3 w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-gold-500 via-gold-400 to-amber-300 text-obsidian-900 font-extrabold text-base">
+                        <!-- تأثير لمعة متحركة -->
+                        <div class="absolute inset-0 -translate-x-full group-hover:animate-shimmer bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none"></div>
+                        
+                        <span>حفظ جهة الاتصال</span>
+                        <span class="text-xl">📥</span>
+                    </div>
+                </button>
+            </section>
+
+            <!-- قائمة بيانات التواصل المباشرة والروابط -->
+            <section class="px-5 mt-5 space-y-3">
+                <h2 class="text-xs font-bold text-slate-400 px-1">معلومات التواصل والحسابات</h2>
+
+                <!-- بطاقة رقم الهاتف مع زر نسخ سريع -->
+                <div class="flex items-center justify-between p-3.5 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10 hover:border-gold-500/30 transition-colors">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-11 h-11 rounded-xl bg-gold-500/15 border border-gold-500/25 flex items-center justify-center text-gold-400 text-lg shrink-0">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                        </div>
+                        <div>
+                            <p class="text-[11px] text-slate-400">الموبايل والواتساب</p>
+                            <p class="text-sm font-bold text-white tracking-wider mt-0.5" dir="ltr">+20 109 328 5310</p>
+                        </div>
+                    </div>
+                    <button 
+                        onclick="copyPhoneNumber('+201093285310')" 
+                        title="نسخ الرقم"
+                        class="w-10 h-10 rounded-xl bg-white/[0.05] hover:bg-gold-500/20 active:scale-90 border border-white/10 flex items-center justify-center text-slate-300 hover:text-gold-300 transition-all cursor-pointer">
+                        <i class="fa-regular fa-copy text-sm"></i>
+                    </button>
+                </div>
+
+                <!-- بطاقة رابط فيسبوك الرسمي -->
+                <a href="https://www.facebook.com/profile.php?id=100086899931128&locale=ar_AR" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-3.5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] backdrop-blur-xl border border-white/10 hover:border-blue-500/40 active:scale-[0.99] transition-all group">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-11 h-11 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xl shrink-0 group-hover:scale-105 transition-transform">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-white">فيسبوك (Facebook)</p>
+                            <p class="text-xs text-slate-400 mt-0.5">تابعنا وتواصل معنا عبر الصفحة الرسمية</p>
+                        </div>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-white/[0.04] flex items-center justify-center text-slate-400 group-hover:text-white group-hover:-translate-x-1 transition-all">
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                    </div>
+                </a>
+
+                <!-- صف أيقونات التواصل الإضافية (واتساب مباشر - خرائط جوجل - تيليجرام/رسالة) -->
+                <div class="grid grid-cols-3 gap-3 pt-1">
+                    <a href="https://wa.me/201093285310" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 py-3 px-3 rounded-2xl bg-white/[0.03] hover:bg-emerald-500/15 border border-white/10 hover:border-emerald-500/30 text-xs font-semibold text-slate-200 transition-all">
+                        <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i>
+                        <span>محادثة فورية</span>
+                    </a>
+
+                    <a href="https://www.google.com/maps/@30.0867731,31.3070343,17z?authuser=0&entry=ttu&g_ep=EgoyMDI2MTExNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 py-3 px-3 rounded-2xl bg-white/[0.03] hover:bg-amber-500/15 border border-white/10 hover:border-amber-500/30 text-xs font-semibold text-slate-200 transition-all">
+                        <i class="fa-solid fa-map-location-dot text-gold-400 text-base"></i>
+                        <span>اللوكيشن</span>
+                    </a>
+
+                    <a href="sms:+201093285310" class="flex items-center justify-center gap-2 py-3 px-3 rounded-2xl bg-white/[0.03] hover:bg-purple-500/15 border border-white/10 hover:border-purple-500/30 text-xs font-semibold text-slate-200 transition-all">
+                        <i class="fa-solid fa-comment-sms text-purple-400 text-base"></i>
+                        <span>رسالة نصية</span>
+                    </a>
+                </div>
+            </section>
+        </div>
+
+        <!-- التذييل السفلي (Footer) -->
+        <footer class="relative z-10 text-center py-5 px-4 mt-4 border-t border-white/[0.06]">
+            <p class="text-[11px] text-slate-500">
+                كارت أعمال رقمي تفاعلي • <span class="text-gold-400/90 font-semibold">Ahmed Taher</span>
+            </p>
+        </footer>
+
+        <!-- إشعار منبثق (Toast Notification) بديل أنيق لرسائل التنبيه -->
+        <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-obsidian-900/95 backdrop-blur-xl border border-gold-500/40 text-white text-xs font-semibold shadow-[0_10px_30px_rgba(0,0,0,0.8)] opacity-0 pointer-events-none translate-y-4 transition-all duration-300 w-max max-w-[90vw]">
+            <i id="toastIcon" class="fa-solid fa-circle-check text-gold-400 text-base"></i>
+            <span id="toastMessage">تمت العملية بنجاح</span>
+        </div>
+
+    </main>
+
+    <!-- كود الجافاسكريبت التفاعلي -->
+    <script>
+        /**
+         * بيانات صاحب الكارت الشخصي
+         * يتم استخدامها في توليد ملف vCard والمشاركة
+         */
+        const contactData = {
+            firstName: "Ahmed",
+            lastName: "Taher",
+            fullName: "Ahmed Taher",
+            title: "Sales",
+            phone: "+201093285310",
+            facebookUrl: "https://www.facebook.com/profile.php?id=100086899931128&locale=ar_AR",
+            locationUrl: "https://www.google.com/maps/@30.0867731,31.3070343,17z?authuser=0&entry=ttu&g_ep=EgoyMDI2MTExNS4wIKXMDSoASAFQAw%3D%3D"
+        };
+
+        /**
+         * دالة إظهار إشعار أنيق أسفل الشاشة (Toast Message)
+         */
+        let toastTimeout;
+        function showToast(message, iconClass = "fa-circle-check text-gold-400") {
+            const toast = document.getElementById("toastNotification");
+            const toastMsg = document.getElementById("toastMessage");
+            const toastIcon = document.getElementById("toastIcon");
+
+            toastMsg.textContent = message;
+            toastIcon.className = `fa-solid ${iconClass} text-base`;
+
+            toast.classList.remove("opacity-0", "pointer-events-none", "translate-y-4");
+            toast.classList.add("opacity-100", "translate-y-0");
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add("opacity-0", "pointer-events-none", "translate-y-4");
+                toast.classList.remove("opacity-100", "translate-y-0");
+            }, 3200);
+        }
+
+        /**
+         * دالة توليد وتحميل ملف جهة الاتصال بصيغة vCard (.vcf)
+         * متوافقة مع هواتف iOS (iPhone) و Android
+         */
+        function downloadVCard() {
+            try {
+                // بناء محتوى ملف vCard القياسي (الإصدار 3.0 لضمان التوافق التام)
+                const vCardLines = [
+                    "BEGIN:VCARD",
+                    "VERSION:3.0",
+                    `N:${contactData.lastName};${contactData.firstName};;;`,
+                    `FN:${contactData.fullName}`,
+                    `TITLE:${contactData.title}`,
+                    `TEL;TYPE=CELL,VOICE,WHATSAPP:${contactData.phone}`,
+                    `URL;TYPE=Facebook:${contactData.facebookUrl}`,
+                    `NOTE:Sales - للتواصل المباشر عبر الموبايل أو واتساب`,
+                    "END:VCARD"
+                ];
+
+                const vCardContent = vCardLines.join("\r\n");
+
+                // إنشاء كائن Blob بترميز UTF-8 ونوع text/vcard
+                const blob = new Blob([vCardContent], { type: "text/vcard;charset=utf-8" });
+                const url = URL.createObjectURL(blob);
+
+                // إنشاء رابط تحميل مخفي وتفعيله تلقائياً
+                const downloadLink = document.createElement("a");
+                downloadLink.href = url;
+                downloadLink.setAttribute("download", "Ahmed_Taher.vcf");
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+
+                // تنظيف الذاكرة بعد التحميل
+                document.body.removeChild(downloadLink);
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+                showToast("جاري فتح بطاقة جهة الاتصال لحفظها في هاتفك 📥");
+            } catch (error) {
+                console.error("Error generating vCard:", error);
+                showToast("حدث خطأ أثناء إنشاء الملف، يرجى المحاولة مرة أخرى", "fa-circle-exclamation text-rose-400");
+            }
+        }
+
+        /**
+         * دالة نسخ رقم الهاتف إلى الحافظة (Clipboard)
+         */
+        function copyPhoneNumber(phone) {
+            const tempInput = document.createElement("input");
+            tempInput.value = phone;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999); // لدعم هواتف iOS
+
+            try {
+                document.execCommand("copy");
+                showToast("تم نسخ رقم الموبايل بنجاح 📋");
+            } catch (err) {
+                showToast("تعذر نسخ الرقم تلقائياً", "fa-circle-exclamation text-rose-400");
+            }
+
+            document.body.removeChild(tempInput);
+        }
+
+        /**
+         * دالة مشاركة الكارت الرقمي باستخدام Web Share API الأصلية في الموبايل
+         * مع توفير خيار نسخ الرابط تلقائياً في حال عدم دعم المتصفح للمشاركة الأصلية
+         */
+        async function shareDigitalCard() {
+            const shareData = {
+                title: `${contactData.fullName} - ${contactData.title}`,
+                text: `تواصل مع ${contactData.fullName} (${contactData.title}) عبر الكارت الشخصي الرقمي:`,
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                try {
+                    await navigator.share(shareData);
+                    showToast("تمت مشاركة الكارت بنجاح ✨");
+                } catch (err) {
+                    // تجاهل الخطأ إذا قام المستخدم بإلغاء نافذة المشاركة
+                    if (err.name !== "AbortError") {
+                        copyCardLinkFallback();
+                    }
+                }
+            } else {
+                // بديل في حال فتح الصفحة من متصفح لا يدعم Web Share API
+                copyCardLinkFallback();
+            }
+        }
+
+        function copyCardLinkFallback() {
+            const tempInput = document.createElement("input");
+            tempInput.value = window.location.href;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            try {
+                document.execCommand("copy");
+                showToast("تم نسخ رابط الكارت لمشاركته 🔗");
+            } catch (e) {
+                showToast("يمكنك مشاركة الرابط من شريط المتصفح 🔗");
+            }
+            document.body.removeChild(tempInput);
+        }
+    </script>
+</body>
+</html>
